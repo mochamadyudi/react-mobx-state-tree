@@ -2,6 +2,13 @@
   "name": "boilerplate-react-tailwind",
   "version": "0.1.0",
   "private": true,
+  "author": "Yuyuid <myudisobari12@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/mochamadyudi/biolerplate-react-tailwind-ecomerce",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mochamadyudi/biolerplate-react-tailwind-ecomerce.git"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
@@ -23,6 +30,14 @@
       "react-app/jest"
     ]
   },
+  "keywords": [
+    "tailwind",
+    "react",
+    "biolerplate",
+    "repositories",
+    "sort",
+    "stars"
+  ],
   "browserslist": {
     "production": [
       ">0.2%",
