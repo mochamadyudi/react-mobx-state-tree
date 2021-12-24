@@ -1,12 +1,15 @@
 {
   "name": "boilerplate-react-tailwind",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Yuyuid <myudisobari12@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/mochamadyudi/biolerplate-react-tailwind-ecomerce",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mochamadyudi/biolerplate-react-tailwind.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@mochamadyudi"
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.4.0",
