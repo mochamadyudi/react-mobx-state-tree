@@ -10,6 +10,9 @@ const Views = (props)=> {
           <Switch>
             <Route path={'/'} exact component={lazy(()=> import("./home/index"))}/>
             <Route path={'/planet'} component={lazy(()=> import("./planet-views/index"))}/>
+            <Route>
+              <span>Not Found</span>
+            </Route>
           </Switch>
         </Suspense>
       </AppLayout>

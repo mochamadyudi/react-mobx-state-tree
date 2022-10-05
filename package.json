@@ -9,6 +9,7 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.0.0",
     "custom-react-scripts": "^0.2.2",
     "mobx": "^6.6.2",
     "mobx-react": "^7.5.3",
@@ -35,6 +36,11 @@
     "test": "react-scripts test --env=jsdom",
     "start": "react-scripts start"
   },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mochamadyudi/react-mobx-state-tree.git"

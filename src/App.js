@@ -10,7 +10,7 @@ export default class App extends Component {
 
     render() {
         return (
-            <div data-testId={1} className={'w-full bg-gray-50'}>
+            <div datatestid={1} className={'w-full bg-gray-50'}>
               <Router>
                 <Switch>
                   <Route path={'/'} component={Views}/>

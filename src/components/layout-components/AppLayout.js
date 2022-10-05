@@ -1,12 +1,17 @@
 import React from 'react'
 import StyledChildren from './StyledChildren'
+import Navbar from './navbar/Navbar'
+import Container from './Container'
 
 const AppLayout = (props)=> {
   return (
     <div className='w-full'>
-      <div className={'yid-main'}>
-        <StyledChildren children={props.children}/>
-      </div>
+      <Navbar/>
+      <Container size={'xl'}>
+        <div className={'yid-main mt-[60px]'} title={'app-main'}>
+          <StyledChildren children={props.children}/>
+        </div>
+      </Container>
     </div>
   )
 }
