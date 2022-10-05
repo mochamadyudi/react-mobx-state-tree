@@ -17,8 +17,10 @@ class PlanetStore{
     return this.getPlanetList(params)
       .then((response)=> {
         action(( )=> {
-          this.result = response?.data
+          this.result = response.data
         })
       })
   }
 }
+
+export default new PlanetStore()

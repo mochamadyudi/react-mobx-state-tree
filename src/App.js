@@ -5,6 +5,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import './assets/scss/main.css'
 import './assets/scss/main.scss'
 import Views from './views/index'
+@inject("planetStore")
+@withRouter
 @observer
 export default class App extends Component {
 
