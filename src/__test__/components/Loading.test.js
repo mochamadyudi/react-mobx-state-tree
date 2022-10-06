@@ -6,7 +6,7 @@ import { act } from "react-dom/test-utils";
 import CardAnalytics from "../../components/shared-components/card/card-analytics";
 import Loading from "../../components/shared-components/loading";
 
-describe('Component - Card Test', () => {
+describe('Component - Loading Test', () => {
 
     let container = null;
     beforeEach(() => {
