@@ -9,7 +9,6 @@ const Container = (props)=> {
       {
         typeof(props.children) !== "undefined" && (
           <StyledChildren children={props.children}/>
-
         )
       }
      </div>

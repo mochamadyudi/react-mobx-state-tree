@@ -9,13 +9,11 @@ import CardAnalytics from "../../components/shared-components/card/card-analytic
 describe("Component - Container", ()=> {
     let container = null;
     beforeEach(() => {
-        // setup a DOM element as a render target
         container = document.createElement("div");
         document.body.appendChild(container);
     });
 
     afterEach(() => {
-        // cleanup on exiting
         unmountComponentAtNode(container);
         container.remove();
         container = null;

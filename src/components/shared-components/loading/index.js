@@ -5,7 +5,7 @@ const Loading = (props)=> {
   switch (props.cover){
     case "page":
       return (
-        <div className={'fixed flex items-center justify-center h-full w-full top-0 left-0 bg-white z-40'} datatestid={1} title={`loading-${props.cover}`}>
+        <div className={'fixed flex items-center justify-center h-full w-full top-0 left-0 bg-white z-40'} data-testid={1} title={`loading-${props.cover}`}>
           <svg className="animate-spin -ml-1 mr-3 h-10 w-10 text-cyan-500" xmlns="http://www.w3.org/2000/svg" fill="none"
                viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
@@ -16,19 +16,19 @@ const Loading = (props)=> {
       )
     case "sub-page":
       return (
-        <div className={''} datatestid={1} title={`loading-${props.cover}`}>
+        <div className={''} data-testid={1} title={`loading-${props.cover}`}>
           <span>{props.cover}</span>
         </div>
       )
     case "component":
       return (
-        <div className={''} datatestid={1} title={`loading-${props.cover}`}>
+        <div className={''} data-testid={1} title={`loading-${props.cover}`}>
           <span>{props.cover}</span>
         </div>
       )
     default:
       return (
-        <div className={''} datatestid={1} title={'loading-default'}>
+        <div className={''} data-testid={1} title={'loading-default'}>
           <span>Default</span>
         </div>
       )
