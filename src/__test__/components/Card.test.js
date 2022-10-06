@@ -4,11 +4,7 @@ import { render as testingRender,screen,fireEvent } from '@testing-library/react
 import { render,unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 import CardAnalytics from "../../components/shared-components/card/card-analytics";
-// test("Component - Card Test", function(){
-//     render(<CardAnalytics title={'Testing'}/>)
-//     const linkElement = screen.getByTitle(/Testing/i)
-//     expect(linkElement).toBe();
-// })
+
 describe('Component - Card Test', () => {
 
     let container = null;
@@ -26,24 +22,16 @@ describe('Component - Card Test', () => {
     });
 
 
-    it('should contains the title 1', () => {
+    it('should contains {{title}} = Testing', () => {
         act(() => {
-            render(<CardAnalytics title={'Testing'}/>, container);
+            render(<CardAnalytics title={'Testing'} subTitle={'total testing'} total={10} testId={10}/>, container);
         });
         expect(container.textContent).toBe("Testing");
+    });
 
+    it("should contains {{testId}} = 10", ()=> {
         testingRender(<CardAnalytics title={'Testing'} subTitle={'total testing'} total={10} testId={10} />);
         const heading = screen.getByTestId(/10/i);
         expect(heading)
-
-        // const baseDom = testingRender(<CardAnalytics title={'Testing'} subTitle={'total testing'} total={10}  testId={1}/>);
-        // const heading = screen.getByText(/Testing/i);
-        // expect(heading).toBeInTheDocument()
-        // // fireEvent.mouseOver(baseDom.getByTitle("Testing"));
-        //
-        // expect(
-        //      baseDom.findByText("Testing")
-        // ).toBeInTheDocument();
-
-    });
+    })
 });
