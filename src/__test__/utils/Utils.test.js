@@ -14,7 +14,6 @@ describe("Utils - Practice test", function(){
     it("Menus Length", ()=> {
         expect(Utils.menus.length > 0).toBe(true)
     })
-
     it("Menus - Home", ()=> {
         expect(Utils.menus.filter((item)=> item.key === "home").length > 0).toBe(true)
     })
