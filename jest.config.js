@@ -1,17 +1,8 @@
+
 module.exports = {
-  setupFilesAfterEnv: [
-    '@testing-library/react/cleanup-after-each',
-    '@testing-library/jest-dom/extend-expect'
-  ],
-  testMatch: [
-    '**/?(*.)test.js?(x)'
-  ],
-  globals: {
-    'ts-jest': {
-      tsConfig: 'tsconfig.json',
-      diagnostics: false,
-    },
-  },
-  testEnvironment: 'node',
-  preset: 'ts-jest',
+  collectCoverage: true,
+  moduleDirectories: ['./node_modules', 'src'],
+  collectCoverageFrom: ['src/__test__/**/*?(*.)test.js?(x)'],
+  coverageDirectory: 'coverage',
+  testEnvironment: 'jsdom',
 }

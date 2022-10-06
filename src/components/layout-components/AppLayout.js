@@ -7,11 +7,9 @@ const AppLayout = (props)=> {
   return (
     <div className='w-full'>
       <Navbar/>
-      <Container size={'xl'}>
-        <div className={'yid-main mt-[60px]'} title={'app-main'}>
-          <StyledChildren children={props.children}/>
+        <div className={'yid-main mt-[60px] min-h-[calc(100%-60px)]'} title={'app-main'}>
+            <StyledChildren children={props.children}/>
         </div>
-      </Container>
     </div>
   )
 }

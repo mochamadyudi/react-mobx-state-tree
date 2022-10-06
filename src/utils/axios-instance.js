@@ -51,7 +51,7 @@ AxiosInstance.interceptors.response.use(
             // store.dispatch(signOut())
         } else {
             return new Promise((resolve, reject) => {
-                reject({...err?.response?.data})
+                reject({...err.response.data})
             })
         }
     }
