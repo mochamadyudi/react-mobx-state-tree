@@ -1,8 +1,10 @@
 import {observable, action} from 'mobx'
 import ApiService from '../services/Api.service'
 import Swal from 'sweetalert2'
+import Utils from "../utils";
 class PlanetStore {
     @observable loading = true;
+    @observable detail = {}
     @observable result = observable.map();
     @observable pagination = {total_page:0,page:1,next_page:1,prev_page:1,limit:10}
     @observable count = 0;
@@ -35,6 +37,26 @@ class PlanetStore {
     }
 
     @action
+    async getSingle(id) {
+        this.loading = true
+        this.detail = null
+
+        return await new ApiService({
+            url:`/people/${id}`
+        }).get()
+            .then(action((response)=> {
+                Reflect.set(response.data,'id',Utils.getIdInRouteSwapi(response.data.url))
+                this.detail = response.data
+                this.loading = false
+            }))
+            .catch((err)=> {
+                this.loading = false
+            })
+    }
+
+
+
+    @action
     async getPeopleList(params = {}){
         this.loading = true;
         this.result = []
@@ -53,6 +75,7 @@ class PlanetStore {
                     for(let i = 0; i < data.results.length;i++){
                         newArr.push({
                             ...data.results[i],
+                            id:Utils.getIdInRouteSwapi(data.results[i].url),
                             _id: (Math.random() * data.results.length),
                             _loading:false
                         })

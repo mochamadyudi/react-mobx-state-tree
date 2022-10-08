@@ -5,7 +5,6 @@ import Utils from "../../../utils";
 export const Input = (props)=> {
     let { errors } = props
     const { field, fieldState } = useController(props);
-    console.log({errors})
     return (
         <div>
             <input {...field} placeholder={props.name} className={`w-full border ${Utils.checkErrorInput(errors) ? "border-red-500 focus:border-red-500" : "border-gray-100 focus:border-cyan-500" } rounded p-2 focus:outline-none hover:outline-none`}/>

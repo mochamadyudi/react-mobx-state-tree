@@ -128,6 +128,19 @@ export default class Utils {
     }
   }
 
+
+  static getIdInRouteSwapi(url){
+    try{
+      let urlSplit = `${url}`.slice(0,(url ? url.length - 1 : 0)).split('/')
+      if(Array.isArray(urlSplit) && urlSplit.length > 0){
+        return urlSplit[urlSplit.length - 1]
+      }
+      return null
+    }catch(err){
+      return null
+    }
+  }
+
   static getGridCol(cols){
     switch (cols){
       case 1:

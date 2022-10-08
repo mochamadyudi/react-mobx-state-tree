@@ -6,7 +6,7 @@ import { act } from "react-dom/test-utils";
 import Utils from "../../utils";
 
 
-describe("Utils - Practice test", function(){
+describe("Utils - Best Practice test", function(){
 
     it("function - get max width tailwind ", ()=> {
         expect(Utils.getMaxWidth('xs')).toBe("max-w-[320px]")

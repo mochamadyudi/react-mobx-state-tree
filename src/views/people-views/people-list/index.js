@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import Table from "../../../components/shared-components/table";
 import {inject, observer} from "mobx-react";
-import {withRouter} from "react-router-dom";
+import {Link, useHistory, withRouter} from "react-router-dom";
 import Loading from "../../../components/shared-components/loading";
 import {TrashIcon} from "../../../components/shared-components/icon";
 
@@ -56,15 +56,23 @@ export default class PeopleList extends React.Component{
         this.setState({added: val === "true"})
     }
     render(){
+        console.log(this.props)
         let { pagination,loading} = this.props.PeopleStore
-
         let data = this.props.PeopleStore._getList()
         console.log({data})
         return (
             <div className="w-full py-10">
                 <Table
                     loading={loading}
-                    title={'Planet List'}
+                    title={'People List'}
+                    expandable={(val,index)=> {
+                        console.log({val},'EXPANDABLE')
+                        return (
+                            <div className="w-full">
+                                <h1>testing</h1>
+                            </div>
+                        )
+                    }}
                     pagination={{
                         current:typeof(pagination.page) !== "undefined" ? pagination.page : 1,
                         total_page:typeof(pagination.total_page) !== "undefined" ? pagination.total_page : 0,
@@ -78,13 +86,13 @@ export default class PeopleList extends React.Component{
                             onClick={() => {
                                 this.onRefresh(pagination.page)
                             }}
-                            className={'px-4 py-2 transition duration-200 hover:bg-cyan-500 hover:text-white text-sm border border-cyan-500 text-cyan-500 rounded-xl'}
+                            className={'px-4 py-2 transition duration-200 hover:bg-gray-500 hover:text-white text-sm border border-gray-500 text-gray-500 rounded-xl'}
                         >Refresh
                         </button>
                         <button
                             onClick={()=> this.onOpenModal(!this.state.added ? "true":"false")}
                             type={'button'}
-                            className={'px-4 py-2 transition duration-200 text-sm border border-purple-500 text-purple-500 transition duration-200 hover:bg-purple-500 hover:text-white rounded-xl'}>Add
+                            className={'px-4 py-2 transition duration-200 text-sm border border-cyan-500 text-cyan-500 transition duration-200 hover:bg-cyan-500 hover:text-white rounded-xl'}>Add
                             Planets
                         </button>
                     </div>}
@@ -95,11 +103,71 @@ export default class PeopleList extends React.Component{
                         {
                             key: "user",
                             title: "Name",
-                            span: 2,
+                            span: 3,
                             render: (item, index) => {
                                 return (
                                     <div className="w-full">
                                         <span>{typeof (item.name) !== "undefined" ? item.name : "-"}</span>
+                                    </div>
+                                )
+                            }
+                        },
+                        {
+                            key: "gender",
+                            title: "Gender",
+                            span: 1,
+                            render: (item, index) => {
+                                return (
+                                    <div className="w-full">
+                                        <span>{typeof (item.gender) !== "undefined" ? item.gender : "-"}</span>
+                                    </div>
+                                )
+                            }
+                        },
+                        {
+                            key: "eye-color",
+                            title: "Eye Color",
+                            span: 1,
+                            render: (item, index) => {
+                                return (
+                                    <div className="w-full">
+                                        <span>{typeof (item.eye_color) !== "undefined" ? item.eye_color : "-"}</span>
+                                    </div>
+                                )
+                            }
+                        },
+                        {
+                            key: "hair-color",
+                            title: "Hair Color",
+                            span: 2,
+                            render: (item, index) => {
+                                return (
+                                    <div className="w-full">
+                                        <span>{typeof (item.hair_color) !== "undefined" ? item.hair_color : "-"}</span>
+                                    </div>
+                                )
+                            }
+                        },
+                        {
+                            key: "skin-color",
+                            title: "Skin Color",
+                            span: 2,
+                            render: (item, index) => {
+                                return (
+                                    <div className="w-full">
+                                        <span>{typeof (item.skin_color) !== "undefined" ? item.skin_color : "-"}</span>
+                                    </div>
+                                )
+                            }
+                        },
+                        {
+                            key: "mass",
+                            title: "Mass",
+                            span: 1,
+                            render: (item, index) => {
+                                return (
+                                    <div className="w-full">
+                                        <span>{typeof (item.mass) !== "undefined" ? item.mass : "-"}</span>
                                     </div>
                                 )
                             }
@@ -111,22 +179,30 @@ export default class PeopleList extends React.Component{
                             span: 2,
                             render: (item, index) => {
                                 return (
-                                    <div className="flex items-center gap-2 justify-end">
-                                        <button
-                                            disabled={item._loading ? item._loading : false}
-                                            onClick={() => this.onDeletePeople(item._id)}
-                                            type={'button'} className={`
+                                    <div className="flex items-center gap-2 justify-end w-full">
+                                        <div className="flex items-center gap-2">
+                                            <Link to={`/people/p/${item.id}`}>
+                                                <button>
+                                                    View
+                                                </button>
+                                            </Link>
+
+                                            <button
+                                                disabled={item._loading ? item._loading : false}
+                                                onClick={() => this.onDeletePeople(item._id)}
+                                                type={'button'} className={`
                                             ${item._loading ?
-                                            "text-gray-500 border border-gray-500 bg-gray-200 hover:bg-gray-100 hover:text-gray-400 hover:border-gray-400 cursor-not-allowed"
-                                            :
-                                            "hover:bg-red-500 hover:text-white border border-red-500 text-red-500"
-                                        }
+                                                "text-gray-500 border border-gray-500 bg-gray-200 hover:bg-gray-100 hover:text-gray-400 hover:border-gray-400 cursor-not-allowed"
+                                                :
+                                                "hover:bg-red-500 hover:text-white border border-red-500 text-red-500"
+                                            }
                                             px-2 py-2 transition duration-200 text-sm rounded-lg group
                                             `}>
-                                            <div className="flex items-center gap-2">
-                                                {item._loading ? <Loading cover={'icon'}/> : <TrashIcon className={'fill-red-500 text-red-500 stroke-red-200 transition duration-200 group-hover:fill-white group-hover:text-white group-hover:stroke-white'}/>}
-                                            </div>
-                                        </button>
+                                                <div className="flex items-center gap-2">
+                                                    {item._loading ? <Loading cover={'icon'}/> : <TrashIcon className={'fill-red-500 text-red-500 stroke-red-200 transition duration-200 group-hover:fill-white group-hover:text-white group-hover:stroke-white'}/>}
+                                                </div>
+                                            </button>
+                                        </div>
                                     </div>
                                 )
                             }
