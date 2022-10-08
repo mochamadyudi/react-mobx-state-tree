@@ -6,6 +6,7 @@ import Loading from "../../../components/shared-components/loading";
 import ModalDefault from "../../../components/shared-components/modal/modal-default";
 import {TrashIcon} from "../../../components/shared-components/icon";
 import FormAddPlanet from "../../../components/layout-components/form-custom/FormAddPlanet";
+import Pagination from "../../../components/shared-components/pagination/Pagination";
 
 
 @inject('PlanetStore')
@@ -33,6 +34,7 @@ export default class PlanetList extends React.Component {
         let data = this.props.PlanetStore.list()
         const {added} = this.state
 
+        console.log({pagination})
         const openModalAdded = (val) => {
             if (window) {
                 const urlSearch = new URLSearchParams(window.location.search)
@@ -52,6 +54,9 @@ export default class PlanetList extends React.Component {
             this.setState({added: val === "true"})
         }
 
+        const handlePagination = (page)=> {
+            this.props.PlanetStore.getPlanetList({page: page})
+        }
         return (
             <div className="w-full py-10">
                 <ModalDefault
@@ -71,6 +76,13 @@ export default class PlanetList extends React.Component {
                 <Table
                     loading={loading}
                     title={'Planet List'}
+                    pagination={{
+                        current:typeof(pagination.page) !== "undefined" ? pagination.page : 1,
+                        total_page:typeof(pagination.total_page) !== "undefined" ? pagination.total_page : 0,
+                        onChange: ({page})=> {
+                            handlePagination(page)
+                        }
+                    }}
                     extra={<div className={'flex items-center gap-4'}>
                         <button
                             type={'button'}
@@ -192,6 +204,7 @@ export default class PlanetList extends React.Component {
 
                     ]}
                 />
+
             </div>
         )
     }

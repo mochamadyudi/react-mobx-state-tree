@@ -9,25 +9,106 @@ class PlanetStore {
     @observable next = null;
     @observable previous = null;
 
-    _delete(){
-
+    _delete(data){
+        return this.result = data
     }
-    _created(){
+    _created(data){
+        let newData = this.result.toJSON()
 
+        Reflect.set(data,'_id',Math.random() * newData.length)
+        Reflect.set(data,'_loading',false)
+        // if(Array.isArray(newData) && newData.length > 0){
+        newData.push(data)
+        // }else{
+        // }
+        Swal.fire({
+            title: 'Success!',
+            text: 'has successfully added new data to the database!',
+            icon: 'success',
+            confirmButtonText: 'back'
+        })
+        return this.result = newData
+    }
+
+    _getList(){
+        return this.result.toJSON()
     }
 
     @action
-    getPeople(params = {}){
+    async getPeopleList(params = {}){
+        this.loading = true;
+        this.result = []
+        return await new ApiService({
+            url:"/people",
+            config:{
+                params
+            }
+        }).get()
+            .then(action((response) => {
+                console.log({response}, 'THEN')
 
+                let data = response.data
+                if (typeof (data.results) !== "undefined" && Array.isArray(data.results) && data.results.length > 0) {
+                    let newArr = []
+                    for(let i = 0; i < data.results.length;i++){
+                        newArr.push({
+                            ...data.results[i],
+                            _id: (Math.random() * data.results.length),
+                            _loading:false
+                        })
+                    }
+                    this.result = newArr
+
+                }
+                this.count = typeof(data.count) !== "undefined" ? data.count : 0
+                let total_page = 1;
+                if(this.count > 0){
+                    total_page = Math.ceil(this.count/this.pagination.limit)
+                    this.pagination.total_page = total_page
+                }
+
+                this.pagination.page = typeof(params.page) !== "undefined" ? params.page : this.pagination.page
+                this.pagination.next_page = this.pagination.page < total_page ? this.pagination.page + 1 : this.pagination.page
+                this.pagination.prev_page = this.pagination.page > 0 ? this.pagination.page - 1 : this.pagination.page
+            }))
+            .catch((err) => {
+                console.log('CATCH')
+                this.loading = false
+                console.log({err})
+            })
+            .finally(action(() => {
+                this.loading = false;
+            }));
     }
 
 
     @action
-    deletePeople(id){}
+    deletePeople(id){
+        let data = this.result.toJSON()
+
+        if(Array.isArray(data) && data.length >0){
+            let index = data.findIndex((item)=> item._id === id)
+            if(index >= 0){
+                data[index]._loading = true
+                Swal.fire({
+                    title: 'Success!',
+                    text: `${data[index].name} is Deleted`,
+                    icon: 'success',
+                    confirmButtonText: 'back'
+                })
+            }
+        }
+        this.result = data
+
+        setTimeout(()=> {
+            this._delete(data.filter((item)=> item._id !== id))
+        },200)
+    }
 
     @action
     createPeople(data){
-
+        console.log({data})
+        return this._created(data)
     }
 }
 

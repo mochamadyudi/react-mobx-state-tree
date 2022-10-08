@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 export default class Utils {
   static getMaxWidth (max = 'lg'){
     switch (max){
@@ -107,6 +109,24 @@ export default class Utils {
     }
   }
 
+  static configPagination(total = PropTypes.number){
+    try{
+      let newArr = []
+      if(typeof(total) !== "undefined"){
+        for(let i = 0; i < total; i ++){
+          newArr.push({page:total[i]})
+        }
+      }
+      return newArr
+
+    }catch(err){
+      return [
+        {
+          page:1,
+        }
+      ]
+    }
+  }
 
   static getGridCol(cols){
     switch (cols){

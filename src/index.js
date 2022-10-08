@@ -2,16 +2,18 @@ import React from 'react'
 import ReactDOM from "react-dom";
 import promiseFinally from "promise.prototype.finally";
 import App from './App'
-import { useStrict } from "mobx"
+import {useStrict} from "mobx"
 import {Provider} from "mobx-react";
 import './assets/scss/main.css'
 import './assets/scss/main.scss'
 import "./assets/scss/tailwind.css"
 import PlanetStore from './store/planetStore'
+import PeopleStore from './store/peopleStore'
 
 
 const stores = {
-  PlanetStore
+    PlanetStore,
+    PeopleStore,
 }
 window._____APP_STATE_____ = stores;
 window.React = React

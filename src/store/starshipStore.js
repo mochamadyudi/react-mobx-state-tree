@@ -16,6 +16,9 @@ class PlanetStore {
 
     }
 
+    _get(){
+
+    }
     @action
     getPeople(params = {}){
 
