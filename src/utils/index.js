@@ -33,7 +33,7 @@ export default class Utils {
       submenu: [
         {
           key:"people-add",
-          path:"/people/add",
+          path:"/people/add?visible=true",
           label:"Add",
           submenu: []
         },
@@ -52,7 +52,7 @@ export default class Utils {
       submenu: [
         {
           key:"planet-add",
-          path:"/planet/add",
+          path:"/planet/add?visible=true",
           label:"Add",
           submenu: []
         },
@@ -71,7 +71,7 @@ export default class Utils {
       submenu: [
         {
           key:"starship-add",
-          path:"/starship/add",
+          path:"/starship/add?visible=true",
           label:"Add",
           submenu: []
         },
@@ -84,6 +84,28 @@ export default class Utils {
       ]
     },
   ]
+
+  static checkErrorInput(error){
+    try{
+      if(typeof(error) === "boolean" && error === false) {
+        return false
+      }else if(typeof(error) === "object" && Object.keys(error).length > 0){
+        return true
+      }else {
+        return false
+      }
+    }catch(err){
+      return false
+    }
+  }
+  static getMessageError(error){
+    try{
+      if(typeof(error.message) !== "undefined") return error.message
+      return ""
+    }catch(err){
+      return ""
+    }
+  }
 
 
   static getGridCol(cols){

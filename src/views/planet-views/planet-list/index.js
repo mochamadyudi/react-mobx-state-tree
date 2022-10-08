@@ -5,6 +5,7 @@ import {Link, withRouter} from "react-router-dom";
 import Loading from "../../../components/shared-components/loading";
 import ModalDefault from "../../../components/shared-components/modal/modal-default";
 import {TrashIcon} from "../../../components/shared-components/icon";
+import FormAddPlanet from "../../../components/layout-components/form-custom/FormAddPlanet";
 
 
 @inject('PlanetStore')
@@ -55,9 +56,18 @@ export default class PlanetList extends React.Component {
             <div className="w-full py-10">
                 <ModalDefault
                     title={'Add Planet'}
-                    visible={this.state.added} onClose={({visible})=> {
-                    openModalAdded(visible ? "true":"false")
-                }}/>
+                    visible={this.state.added}
+                    onClose={({visible})=> openModalAdded(visible ? "true":"false")}
+                >
+                    <div>
+                        <FormAddPlanet onSuccess={()=> {
+                            openModalAdded("false")
+                        }}/>
+                    </div>
+                </ModalDefault>
+
+
+
                 <Table
                     loading={loading}
                     title={'People List'}

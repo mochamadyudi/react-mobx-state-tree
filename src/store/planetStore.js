@@ -1,6 +1,6 @@
 import {observable, action} from 'mobx'
 import ApiService from '../services/Api.service'
-
+import Swal from 'sweetalert2'
 class PlanetStore {
     @observable loading = true;
     @observable result = observable.map();
@@ -26,6 +26,30 @@ class PlanetStore {
         return this.result = data
     }
 
+    create(data){
+        let newData = this.result.toJSON()
+
+        Reflect.set(data,'_id',Math.random() * newData.length)
+        Reflect.set(data,'_loading',false)
+        // if(Array.isArray(newData) && newData.length > 0){
+            newData.push(data)
+        // }else{
+        // }
+        Swal.fire({
+            title: 'Success!',
+            text: 'has successfully added new data to the database!',
+            icon: 'success',
+            confirmButtonText: 'back'
+        })
+        return this.result = newData
+    }
+
+
+    @action createNewPlanet(data){
+        console.log({data})
+        return this.create(data)
+    }
+
     @action
     async deletePlanet(id){
         console.log({id})
@@ -35,6 +59,12 @@ class PlanetStore {
             let index = data.findIndex((item)=> item._id === id)
             if(index >= 0){
                 data[index]._loading = true
+                Swal.fire({
+                    title: 'Success!',
+                    text: `${data[index].name} is Deleted`,
+                    icon: 'success',
+                    confirmButtonText: 'back'
+                })
             }
         }
         this.result = data
@@ -42,20 +72,6 @@ class PlanetStore {
         setTimeout(()=> {
             this.delete(data.filter((item)=> item._id !== id))
         },200)
-        // action(()=> {
-        //     setTimeout(()=> {
-        //         this.result = data.filter((item)=> item._id !== id)
-        //     },2000)
-        //
-        // })
-        // this.result = data
-        // this.result = data
-        // console.log(this.result)
-        // setTimeout(()=> {
-        //     data= data.filter((item)=> item._id !== id)
-        // },2000)
-        // return this.result = data
-
     }
 
     @action

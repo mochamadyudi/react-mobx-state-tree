@@ -14,6 +14,9 @@ const Home = (props) => {
                             <div className={'space-y-4'}>
                                 <h1 className={'font-lexend !font-bold text-5xl'}>Moonlay Academy</h1>
                                 <h3 className={'font-poppins !font-semibold text-xl'}>Mid Frontend Technical Test</h3>
+
+
+
                                 <ul className="text-sm text-gray-500 font-worksans">
                                     {
                                         [
@@ -64,26 +67,32 @@ const Home = (props) => {
                                         })
                                     }
                                 </ul>
+
+
+
                                 <div className={'flex items-center gap-4 py-4'}>
-                                    <Link to={'/people/add'}>
+                                    <Link to={'/people/add?visible=true'}>
                                         <button title={'add-people'}
                                                 className={'lowercase border border-cyan-500 text-cyan-500 transition duration-200 hover:bg-cyan-500 hover:text-white font-poppins  px-4 py-2 rounded-xl'}>Add
                                             People
                                         </button>
                                     </Link>
-                                    <Link to={'/planet/add'}>
+                                    <Link to={'/planet/add?visible=true'}>
                                         <button title={'add-planet'}
                                                 className={'lowercase border border-purple-500 text-purple-500 transition duration-200 hover:bg-purple-500 hover:text-white font-poppins  px-4 py-2 rounded-xl'}>Add
                                             Planet
                                         </button>
                                     </Link>
-                                    <Link to={'/starship/add'}>
+                                    <Link to={'/starship/add?visible=true'}>
                                         <button title={'add-starship'}
                                                 className={'lowercase border border-yellow-500 text-yellow-500 transition duration-200 hover:bg-yellow-500 hover:text-white font-poppins  px-4 py-2 rounded-xl'}>Add
                                             Starship
                                         </button>
                                     </Link>
                                 </div>
+
+
+
                             </div>
                         </div>
                         <div className='col-span-6 h-full flex items-center justify-center'>
