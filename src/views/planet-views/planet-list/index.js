@@ -70,7 +70,7 @@ export default class PlanetList extends React.Component {
 
                 <Table
                     loading={loading}
-                    title={'People List'}
+                    title={'Planet List'}
                     extra={<div className={'flex items-center gap-4'}>
                         <button
                             type={'button'}

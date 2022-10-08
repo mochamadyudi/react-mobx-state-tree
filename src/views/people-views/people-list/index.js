@@ -1,6 +1,11 @@
 import React from 'react'
 import Table from "../../../components/shared-components/table";
 
+
+// const PeopleList = ()=> {
+//
+// }
+
 export default class PeopleList extends React.Component{
     state={
         loading:true
