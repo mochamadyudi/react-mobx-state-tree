@@ -3,14 +3,19 @@ import Table from "../../../components/shared-components/table";
 import {inject, observer} from "mobx-react";
 import {Link, useHistory, withRouter} from "react-router-dom";
 import Loading from "../../../components/shared-components/loading";
-import {TrashIcon} from "../../../components/shared-components/icon";
+import {EyeIcons, PencilIcons, TrashIcon} from "../../../components/shared-components/icon";
+import ModalDefault from "../../../components/shared-components/modal/modal-default";
+import FormAddPlanet from "../../../components/layout-components/form-custom/FormAddPlanet";
+import FormAddPeople from "../../../components/layout-components/form-custom/FormAddPeople";
 
 @inject("PeopleStore")
 @withRouter
 @observer
 export default class PeopleList extends React.Component{
     state = {
-        added:false
+        added:false,
+        selected:null,
+        mode:"add"
     }
     componentDidMount() {
         this.props.PeopleStore.getPeopleList({page:1})
@@ -55,18 +60,47 @@ export default class PeopleList extends React.Component{
         }
         this.setState({added: val === "true"})
     }
+
+
+
+
     render(){
-        console.log(this.props)
         let { pagination,loading} = this.props.PeopleStore
         let data = this.props.PeopleStore._getList()
-        console.log({data})
+
+        console.log(this.state)
+
         return (
             <div className="w-full py-10">
+                <ModalDefault
+                    title={this.state.mode === "add"? `Add People` : 'Update People'}
+                    visible={this.state.added}
+                    onClose={({visible})=> this.onOpenModal(visible ? "true":"false")}
+                >
+                    {
+                        this.state.added && (
+                            <div>
+                                <FormAddPeople
+                                    mode={this.state.mode}
+                                    initialValue={this.state.selected !== null ? this.state.selected : null}
+                                    onSuccess={()=> {
+                                        this.setState({
+                                            ...this.state,
+                                            selected:null
+                                        })
+                                        this.onOpenModal("false")
+                                    }}/>
+                            </div>
+                        )
+                    }
+
+                </ModalDefault>
+
+
                 <Table
                     loading={loading}
                     title={'People List'}
                     expandable={(val,index)=> {
-                        console.log({val},'EXPANDABLE')
                         return (
                             <div className="w-full">
                                 <h1>testing</h1>
@@ -90,10 +124,15 @@ export default class PeopleList extends React.Component{
                         >Refresh
                         </button>
                         <button
-                            onClick={()=> this.onOpenModal(!this.state.added ? "true":"false")}
+                            onClick={()=> {
+                                this.setState({
+                                    mode:"add",
+                                })
+                                this.onOpenModal(!this.state.added ? "true":"false")
+                            }}
                             type={'button'}
                             className={'px-4 py-2 transition duration-200 text-sm border border-cyan-500 text-cyan-500 transition duration-200 hover:bg-cyan-500 hover:text-white rounded-xl'}>Add
-                            Planets
+                            People
                         </button>
                     </div>}
                     col={12}
@@ -182,10 +221,29 @@ export default class PeopleList extends React.Component{
                                     <div className="flex items-center gap-2 justify-end w-full">
                                         <div className="flex items-center gap-2">
                                             <Link to={`/people/p/${item.id}`}>
-                                                <button>
-                                                    View
+                                                <button
+                                                    type={'button'}
+                                                    className={'px-2 py-2 transition duration-200 text-sm rounded-lg group border border-gray-400'}
+                                                >
+                                                    <EyeIcons className={'fill-gray-400 w-6 h-6'}/>
                                                 </button>
                                             </Link>
+                                            <button
+                                                type={'button'}
+                                                onClick={()=> {
+                                                    this.setState({
+                                                        ...this.state,
+                                                        selected:item,
+                                                        mode:'update'
+                                                    })
+                                                    this.onOpenModal('true')
+
+                                                }}
+                                                className={'px-2 py-2 transition duration-200 text-sm rounded-lg group border border-gray-400'}
+                                            >
+                                                <PencilIcons className={'fill-gray-500'}/>
+                                            </button>
+
 
                                             <button
                                                 disabled={item._loading ? item._loading : false}

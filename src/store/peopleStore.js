@@ -19,10 +19,7 @@ class PlanetStore {
 
         Reflect.set(data,'_id',Math.random() * newData.length)
         Reflect.set(data,'_loading',false)
-        // if(Array.isArray(newData) && newData.length > 0){
         newData.push(data)
-        // }else{
-        // }
         Swal.fire({
             title: 'Success!',
             text: 'has successfully added new data to the database!',
@@ -34,6 +31,33 @@ class PlanetStore {
 
     _getList(){
         return this.result.toJSON()
+    }
+
+
+    @action
+    async update(properties){
+        let data = this.result.toJSON()
+
+        if(Array.isArray(data) && data.length >0){
+            let index = data.findIndex((item)=> item._id === properties._id)
+            if(index >= 0){
+                data[index]._loading = true
+                Swal.fire({
+                    title: 'Success!',
+                    text: `${data[index].name} is updated`,
+                    icon: 'success',
+                    confirmButtonText: 'back'
+                })
+
+                data[index] = {
+                    ...data[index],
+                    ...properties,
+                    _loading:false
+                }
+            }
+        }
+        this.result = data
+
     }
 
     @action

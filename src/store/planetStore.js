@@ -1,8 +1,10 @@
 import {observable, action} from 'mobx'
 import ApiService from '../services/Api.service'
 import Swal from 'sweetalert2'
+import Utils from "../utils";
 class PlanetStore {
     @observable loading = true;
+    @observable detail = {}
     @observable result = observable.map();
     @observable pagination = {total_page:0,page:1,next_page:1,prev_page:1,limit:10}
     @observable count = 0;
@@ -46,13 +48,12 @@ class PlanetStore {
 
 
     @action createNewPlanet(data){
-        console.log({data})
+
         return this.create(data)
     }
 
     @action
     async deletePlanet(id){
-        console.log({id})
         let data = this.result.toJSON()
 
         if(Array.isArray(data) && data.length >0){
@@ -80,14 +81,13 @@ class PlanetStore {
         this.result = []
         return await this.planetList(params)
             .then(action((response) => {
-                console.log({response}, 'THEN')
-
                 let data = response.data
                 if (typeof (data.results) !== "undefined" && Array.isArray(data.results) && data.results.length > 0) {
                     let newArr = []
                     for(let i = 0; i < data.results.length;i++){
                         newArr.push({
                             ...data.results[i],
+                            id:Utils.getIdInRouteSwapi(data.results[i].url),
                             _id: (Math.random() * data.results.length),
                             _loading:false
                         })
@@ -125,6 +125,53 @@ class PlanetStore {
         //     this.loading = false
         // }))
     }
+
+
+    @action
+    async update(properties){
+        let data = this.result.toJSON()
+
+        console.log({properties})
+        if(Array.isArray(data) && data.length >0){
+            let index = data.findIndex((item)=> item._id === properties._id)
+            if(index >= 0){
+                data[index]._loading = true
+                Swal.fire({
+                    title: 'Success!',
+                    text: `${properties.name} is updated`,
+                    icon: 'success',
+                    confirmButtonText: 'back'
+                })
+
+                data[index] = {
+                    ...properties,
+                    _loading:false
+                }
+            }
+        }
+        this.result = data
+
+    }
+
+    @action
+    async getDetail(id) {
+        this.loading = true
+        this.detail = null
+
+        return await new ApiService({
+            url:`/planets/${id}`
+        }).get()
+            .then(action((response)=> {
+                Reflect.set(response.data,'id',Utils.getIdInRouteSwapi(response.data.url))
+                this.detail = response.data
+                this.loading = false
+            }))
+            .catch((err)=> {
+                this.loading = false
+            })
+    }
+
+
 }
 
 export default new PlanetStore()

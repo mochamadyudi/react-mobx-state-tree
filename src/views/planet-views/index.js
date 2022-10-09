@@ -5,18 +5,17 @@ import Container from "../../components/layout-components/Container";
 
 const PlanetViews = ({match})=> {
   return (
-      <Container size={'xl'}>
-          <React.Fragment>
-              <Suspense fallback={<Loading cover={'sub-page'}/>}>
-                  <Switch>
-                      <Route path={`${match.url}/list`} component={lazy(()=> import('./planet-list/index'))}/>
-                      <Route path={`${match.url}/add`} exact component={lazy(()=> import('./planet-list/index'))}/>
-                      <Route path={`${match.url}/edit`} exact component={lazy(()=> import('./planet-list/index'))}/>
-                      <Redirect from={`${match.url}`} to={`${match.url}/list`}/>
-                  </Switch>
-              </Suspense>
-          </React.Fragment>
-      </Container>
+      <React.Fragment>
+          <Suspense fallback={<Loading cover={'sub-page'}/>}>
+              <Switch>
+                  <Route path={`${match.url}/p/:id`} component={lazy(()=> import('./planet-detail/index'))}/>
+                  <Route path={`${match.url}/list`} component={lazy(()=> import('./planet-list/index'))}/>
+                  <Route path={`${match.url}/add`} component={lazy(()=> import('./planet-list/index'))}/>
+                  <Route path={`${match.url}/edit`} component={lazy(()=> import('./planet-list/index'))}/>
+                  <Redirect from={`${match.url}`} to={`${match.url}/list`}/>
+              </Switch>
+          </Suspense>
+      </React.Fragment>
   )
 }
 

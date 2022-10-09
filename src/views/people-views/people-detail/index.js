@@ -111,12 +111,12 @@ export default class PeopleDetail extends React.Component{
                         {/*}*/}
                     </div>
                 </div>
-                <div style={{width:"90%"}} className="mx-auto rounded-xl relative -top-4">
-                    <div className="grid grid-cols-12 gap-6 w-full h-full">
-                        <div className="col-span-4 w-full h-60 bg-white rounded-xl"></div>
-                        <div className="col-span-8 w-full h-60 bg-white rounded-xl"></div>
-                    </div>
-                </div>
+                {/*<div style={{width:"90%"}} className="mx-auto rounded-xl relative -top-4">*/}
+                {/*    <div className="grid grid-cols-12 gap-6 w-full h-full">*/}
+                {/*        <div className="col-span-4 w-full h-60 bg-white rounded-xl"></div>*/}
+                {/*        <div className="col-span-8 w-full h-60 bg-white rounded-xl"></div>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
             </div>
         );
     }

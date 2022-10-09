@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import {useForm} from "react-hook-form";
 
@@ -10,20 +10,90 @@ import {useYupValidationResolver} from "../../../hooks/yup-validator";
 
 const FormAddPlanet = (props) => {
     let { onSuccess } = props
+
+    console.log({props})
+
+
+
+    const [inVal,setInVal] = useState(()=> {
+        let newObj = {
+            name:"",
+            mass:"",
+            hair_color:"",
+            skin_color:"",
+            eye_color:"",
+            gender:"",
+        }
+        if(typeof(props.initialValue) !== "undefined" && props.initialValue !== null){
+            newObj = {
+                ...newObj,
+                ...props.initialValue
+            }
+            if(typeof(props.initialValue) !== "undefined" && props.initialValue !== null){
+                if(typeof(props.initialValue.name) !== "undefined" && props.initialValue.name !== null && props.initialValue.name !== ""){
+                    Reflect.set(newObj,"name",props.initialValue.name)
+                }
+                if(typeof(props.initialValue.climate) !== "undefined" && props.initialValue.climate !== null && props.initialValue.climate !== ""){
+                    Reflect.set(newObj,"climate",props.initialValue.climate)
+                }
+                if(typeof(props.initialValue.diameter) !== "undefined" && props.initialValue.diameter !== null && props.initialValue.diameter !== ""){
+                    Reflect.set(newObj,"diameter",props.initialValue.diameter)
+                }
+                if(typeof(props.initialValue.terrain) !== "undefined" && props.initialValue.terrain !== null && props.initialValue.terrain !== ""){
+                    Reflect.set(newObj,"terrain",props.initialValue.terrain)
+                }
+                if(typeof(props.initialValue.gravity) !== "undefined" && props.initialValue.gravity !== null && props.initialValue.gravity !== ""){
+                    Reflect.set(newObj,"gravity",props.initialValue.gravity)
+                }
+                if(typeof(props.initialValue.population) !== "undefined" && props.initialValue.population !== null && props.initialValue.population !== ""){
+                    Reflect.set(newObj,"population",props.initialValue.population)
+                }
+            }
+        }
+        return newObj
+    })
+
+
+    useEffect(()=> {
+        let newObj = {
+            name:"",
+            climate:"",
+            diameter:"",
+            terrain:"",
+            gravity:"",
+            population:"",
+        }
+        if(typeof(props.initialValue) !== "undefined" && props.initialValue !== null){
+            if(typeof(props.initialValue.name) !== "undefined" && props.initialValue.name !== null && props.initialValue.name !== ""){
+                Reflect.set(newObj,"name",props.initialValue.name)
+            }
+            if(typeof(props.initialValue.climate) !== "undefined" && props.initialValue.climate !== null && props.initialValue.climate !== ""){
+                Reflect.set(newObj,"climate",props.initialValue.climate)
+            }
+            if(typeof(props.initialValue.diameter) !== "undefined" && props.initialValue.diameter !== null && props.initialValue.diameter !== ""){
+                Reflect.set(newObj,"diameter",props.initialValue.diameter)
+            }
+            if(typeof(props.initialValue.terrain) !== "undefined" && props.initialValue.terrain !== null && props.initialValue.terrain !== ""){
+                Reflect.set(newObj,"terrain",props.initialValue.terrain)
+            }
+            if(typeof(props.initialValue.gravity) !== "undefined" && props.initialValue.gravity !== null && props.initialValue.gravity !== ""){
+                Reflect.set(newObj,"gravity",props.initialValue.gravity)
+            }
+            if(typeof(props.initialValue.population) !== "undefined" && props.initialValue.population !== null && props.initialValue.population !== ""){
+                Reflect.set(newObj,"population",props.initialValue.population)
+            }
+        }
+        setInVal(newObj)
+    },[props])
+
+
     const resolver = useYupValidationResolver(schema._addPlanet)
     const {handleSubmit, control, errors,reset} = useForm({
         shouldFocusError: true,
         criteriaMode: "all",
         reValidateMode: "onBlur",
         resolver,
-        defaultValues: {
-            name: "",
-            climate: "",
-            diameter: "",
-            terrain: "",
-            gravity: "",
-            population: ""
-        },
+        defaultValues: inVal,
         mode: "onChange"
     });
 
@@ -62,7 +132,15 @@ const FormAddPlanet = (props) => {
             "edited": "2014-12-20T20:58:18.411000Z",
             "url": "https://swapi.dev/api/planets/1/"
         }
-        props.PlanetStore.createNewPlanet(exampleItem)
+        if(typeof(props.mode) !== "undefined" && props.mode === "add"){
+            props.PlanetStore.createNewPlanet(exampleItem)
+        }else{
+            if(typeof(props.initialValue) !== "undefined" && props.initialValue !== null){
+                props.PlanetStore.update({...exampleItem,_id:props.initialValue._id})
+            }
+
+        }
+
         onSuccess(exampleItem)
         reset({
             name: "",

@@ -72,7 +72,7 @@ const TableRow = (props) => {
             {
                 typeof (props.expandable) !== "undefined" && typeof (props.expandable) === "function" && true &&  (
                     <div className="w-full overflow-hidden " style={{height: 0, transition: ".2s"}} ref={refCollapse}>
-                        <div className="w-full p-4 border border-gray-200">
+                        <div className="w-full py-4">
                             {props.expandable(data,index)}
                         </div>
                     </div>
@@ -100,7 +100,7 @@ const Table = (props) => {
         return []
     })
     return (
-        <div className="w-full bg-white p-8 rounded-xl relative overflow-hidden font-lexend">
+        <div className={`${typeof(props.className) !== "undefined" ? props.className : "w-full bg-white p-8 rounded-xl relative overflow-hidden font-lexend"}`}>
             <div className="flex items-center justify-between mb-4">
                 {
                     typeof (props.title) !== "undefined" ? (

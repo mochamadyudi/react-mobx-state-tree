@@ -9,11 +9,12 @@ import './assets/scss/main.scss'
 import "./assets/scss/tailwind.css"
 import PlanetStore from './store/planetStore'
 import PeopleStore from './store/peopleStore'
-
+import StarshipStore from './store/starshipStore'
 
 const stores = {
     PlanetStore,
     PeopleStore,
+    StarshipStore
 }
 window._____APP_STATE_____ = stores;
 window.React = React

@@ -36,13 +36,39 @@ PlusIcons.defaultProps = {
 }
 
 
-export const MaleIcons = ()=> {
+export const MaleIcons = () => {
     return (
         <img src="/img/icon/icon-male.png" alt="icon-male" className={'w-5 h-5'} title={'gender male'}/>
     )
 }
-export const FemaleIcons = ()=> {
+export const FemaleIcons = () => {
     return (
         <img src="/img/icon/icon-female.png" alt="icon-male" className={'w-5 h-5'} title={'gender female'}/>
+    )
+}
+
+
+export const EyeIcons = (props) => {
+    return (
+        <svg {...props} className={`${typeof (props.className) !== "undefined" ? props.className : ""} w-5 h-5`}
+             xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+            <path
+                d="M447.1 256.2C401.8 204 339.2 144 256 144c-33.6 0-64.4 9.5-96.9 29.8C131.7 191 103.6 215.2 65 255l-1 1 6.7 6.9C125.8 319.3 173.4 368 256 368c36.5 0 71.9-11.9 108.2-36.4 30.9-20.9 57.2-47.4 78.3-68.8l5.5-5.5-.9-1.1zM256 336c-44.1 0-80-35.9-80-80s35.9-80 80-80 80 35.9 80 80-35.9 80-80 80z"/>
+            <path
+                d="M250.4 226.8c0-6.9 2-13.4 5.5-18.8-26.5 0-47.9 21.6-47.9 48.2s21.5 48.1 47.9 48.1 48-21.5 48-48.1c-5.4 3.5-11.9 5.5-18.8 5.5-19.1-.1-34.7-15.7-34.7-34.9z"/>
+        </svg>
+    )
+}
+
+export const PencilIcons = (props) => {
+    return (
+        <svg
+            className={` w-4 h-4 ${typeof(props.className) !== "undefined" ? props.className : ""}`} xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1"
+             x="0px" y="0px" width="528.899px" height="528.899px" viewBox="0 0 528.899 528.899"
+            style={{enableBackground:"new 0 0 528.899 528.899"}}
+
+            xmlSpace="preserve"
+        >
+            <g><path d="M328.883,89.125l107.59,107.589l-272.34,272.34L56.604,361.465L328.883,89.125z M518.113,63.177l-47.981-47.981   c-18.543-18.543-48.653-18.543-67.259,0l-45.961,45.961l107.59,107.59l53.611-53.611   C532.495,100.753,532.495,77.559,518.113,63.177z M0.3,512.69c-1.958,8.812,5.998,16.708,14.811,14.565l119.891-29.069   L27.473,390.597L0.3,512.69z"/></g></svg>
     )
 }
